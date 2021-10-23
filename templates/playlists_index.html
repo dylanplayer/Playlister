@@ -2,7 +2,8 @@
 {% block content %}
     <h1>Playlists</h1>
     {% for playlist in playlists %}
-        <h2>{{ playlist.title }}</h2>
+        <h2><a href='/playlists/{{ playlist._id }}'>{{ playlist.title }}</a></h2>
         <p>{{ playlist.description }}</p>
     {% endfor %}
+    <a href="/playlists/new">New Playlist</a>
 {% endblock %}
