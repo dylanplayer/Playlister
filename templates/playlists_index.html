@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Playlists</h1>
-    {% for playlist in playlists %}
-        <h2><a href='/playlists/{{ playlist._id }}'>{{ playlist.title }}</a></h2>
-        <p>{{ playlist.description }}</p>
-    {% endfor %}
-    <a href="/playlists/new">New Playlist</a>
+    <div class="row justify-content-center">
+        {% for playlist in playlists %}
+            <div class="col-md-3 bg-dark text-light rounded m-2 d-flex flex-column h-100">
+                <h2><a href='/playlists/{{ playlist._id }}'>{{ playlist.title }}</a></h2>
+                <p>{{ playlist.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
