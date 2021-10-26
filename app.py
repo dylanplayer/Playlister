@@ -21,7 +21,7 @@ def playlists_index():
 
 @app.route('/playlists', methods=['POST'])
 def playlists_submit():
-    video_ids = request.form.get('video_ids').split()
+    video_ids = str(request.form.get('video_ids')).split()
     videos = video_url_creator(video_ids)
     playlist = {
         'title': request.form.get('title'),
