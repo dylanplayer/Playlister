@@ -1,14 +1,16 @@
 from flask import Flask, render_template, redirect, url_for, request
 from bson.objectid import ObjectId
 from pymongo import MongoClient
+import os
 
 app = Flask(__name__)
 
 # Start DB with: brew services start mongodb-community@5.0 
 # Stop DB with: brew services stop mongodb-community@5.0
 
-client = MongoClient()
-db = client.Playlister
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
+client = MongoClient(host=host)
+db = client.get_default_database()
 playlists = db.playlists
 
 @app.route('/')
