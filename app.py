@@ -8,8 +8,8 @@ app = Flask(__name__)
 # Start DB with: brew services start mongodb-community@5.0 
 # Stop DB with: brew services stop mongodb-community@5.0
 
-host = os.environ.get('MONGODB_URI')
-client = MongoClient(host)
+host = os.environ.get('MONGODB_URI','mongodb+srv://Atlas-Admin:AyaKcgVdV7eCeojW@playlister.y7ywm.mongodb.net/playlists?retryWrites=true&w=majority')
+client = MongoClient(host=host)
 db = client.get_default_database()
 playlists = db.playlists
 
