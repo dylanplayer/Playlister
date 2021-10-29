@@ -3,7 +3,7 @@
     <h1>Playlists</h1>
     <div class="row justify-content-center">
         {% for playlist in playlists %}
-            <div class="col-md-3 bg-dark text-light rounded m-2 d-flex flex-column h-100" style="min-width: fit-content; max-width: 33%;">
+            <div class="col-md-3 bg-dark text-light rounded m-2 d-flex flex-column h-100" style="min-width: fit-content;">
                 <h2><a href='/playlists/{{ playlist._id }}'>{{ playlist.title }}</a></h2>
                 <p>{{ playlist.description }}</p>
             </div>
