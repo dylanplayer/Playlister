@@ -5,13 +5,12 @@ import os
 
 app = Flask(__name__)
 
-# Start DB with: brew services start mongodb-community@5.0 
-# Stop DB with: brew services stop mongodb-community@5.0
-
-host = os.environ.get('MONGODB_URI')
+# host = os.environ.get('MONGODB_URI')
+host = 'mongodb+srv://Atlas-Admin:AyaKcgVdV7eCeojW@playlister.y7ywm.mongodb.net/playlists?retryWrites=true&w=majority'
 client = MongoClient(host=host)
 db = client.get_default_database()
 playlists = db.playlists
+comments = db.comments
 
 @app.route('/')
 def index():
@@ -41,7 +40,8 @@ def playlists_new():
 @app.route('/playlists/<playlist_id>')
 def playlists_show(playlist_id):
     playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
-    return render_template('playlists_show.html', playlist=playlist)
+    playlist_comments = comments.find({'playlist_id': playlist_id})
+    return render_template('playlists_show.html', playlist=playlist, comments=playlist_comments)
 
 @app.route('/playlists/<playlist_id>', methods=['POST'])
 def playlists_update(playlist_id):
@@ -67,6 +67,15 @@ def playlists_edit(playlist_id):
 def playlists_delete(playlist_id):
     playlists.delete_one({'_id': ObjectId(playlist_id)})
     return redirect(url_for('playlists_index'))
+
+@app.route('/playlists/comments/', methods=['POST'])
+def comments_new():
+    comments.insert_one({
+        'playlist_id': request.form.get('playlist_id'),
+        'title': request.form.get('title'),
+        'content': request.form.get('content'),
+    })
+    return redirect(url_for('playlists_show', playlist_id=request.form.get('playlist_id')))
 
 def video_url_creator(ids):
     videos = []
