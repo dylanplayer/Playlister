@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
             <h1 class="w-100">{{ playlist.title }}</h1>
-            <h3 class="w-100">{{ playlist.description }}</h3>
+            <p class="w-100">{{ playlist.description }}</p>
             {% for video in playlist.videos %}
                 <div class="card rounded border-3 bg-light" style="min-width: fit-content;">
                     <div class="card-body">
@@ -21,6 +21,23 @@
                 <form class="col" method='POST' action='/playlists/{{ playlist._id }}/delete'>
                     <button class="btn btn-danger rounded w-75" type='submit'>Delete</button>
                 </form>
+            </div>
+            {% include 'partials/comment_form.html' %}
+            <h3>Comments</h3>
+            <div class="container">
+                {% for comment in comments %}
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">{{ comment.title }}</h4>
+                            <p class="card-text">{{ comment.content }}</p>
+                        </div>
+                        <div class="container">
+                            <div class="col">
+                                <a href="/playlists/{{ playlist._id }}/comments/{{ comment._id }}/delete" class="btn btn-primary rounded">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
