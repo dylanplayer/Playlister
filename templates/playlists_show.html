@@ -31,6 +31,11 @@
                             <h4 class="card-title">{{ comment.title }}</h4>
                             <p class="card-text">{{ comment.content }}</p>
                         </div>
+                        <div class="container">
+                            <div class="col">
+                                <a href="/playlists/{{ playlist._id }}/comments/{{ comment._id }}/delete" class="btn btn-primary rounded">Delete</a>
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
