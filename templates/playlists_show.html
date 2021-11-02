@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p><a href="/">BACK</a></p>
+    <p class="w-100"><a href="/">BACK</a></p>
 
-    <div class="row">
+    <div class="row w-100">
         <div class="col-sm-6 col-sm-offset-3">
             <h1 class="w-100">{{ playlist.title }}</h1>
             <p class="w-100">{{ playlist.description }}</p>
@@ -14,30 +14,36 @@
                     </div>
                 </div>
             {% endfor %}
-            <div class="row mt-3 justify-self-end">
-                <div class="col">
+            <div class="row mt-3 w-100">
+                <div class="col-6">
                     <a class="btn btn-primary rounded w-75" href='/playlists/{{ playlist._id }}/edit'>Edit</a>
                 </div>
-                <form class="col" method='POST' action='/playlists/{{ playlist._id }}/delete'>
+                <form class="col-6" method='POST' action='/playlists/{{ playlist._id }}/delete'>
                     <button class="btn btn-danger rounded w-75" type='submit'>Delete</button>
                 </form>
             </div>
-            {% include 'partials/comment_form.html' %}
-            <h3>Comments</h3>
-            <div class="container">
-                {% for comment in comments %}
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">{{ comment.title }}</h4>
-                            <p class="card-text">{{ comment.content }}</p>
-                        </div>
-                        <div class="container">
-                            <div class="col">
-                                <a href="/playlists/{{ playlist._id }}/comments/{{ comment._id }}/delete" class="btn btn-primary rounded">Delete</a>
-                            </div>
+            <div class="row">
+                <div class="col">
+                    <h3 class="row">Comments</h3>
+                    <div class="row">
+                        <div class="col" style="border: 2px solid grey; border-radius: 5px;">
+                            {% include 'partials/comment_form.html' %}
                         </div>
                     </div>
-                {% endfor %}
+                    <div class="row">
+                        {% for comment in comments %}
+                            <div class="card w-100 mt-3" style="border: none;">
+                                <div class="card-block">
+                                    <h4 class="card-title">{{ comment.title }}</h4>
+                                    <p class="card-text">{{ comment.content }}</p>
+                                </div>
+                                <div class="card-block w-100 d-flex flex-column">
+                                    <a href="/playlists/{{ playlist._id }}/comments/{{ comment._id }}/delete" class="btn btn-primary rounded btn-sm align-self-end">Delete</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
